@@ -878,6 +878,9 @@ struct _cmsStage_struct {
     // A generic pointer to whatever memory needed by the stage
     void*               Data;
 
+    // Slope limit setting for tone curves (used internally)
+    int                 SlopeLimit;
+
     // Maintains linked list (used internally)
     struct _cmsStage_struct* Next;
 };
@@ -902,6 +905,11 @@ cmsStage*                          _cmsStageClipNegatives(cmsContext ContextID, 
 
 // For curve set only
 cmsToneCurve**     _cmsStageGetPtrToCurveSet(const cmsStage* mpe);
+
+
+// Curve evaluation with slope limit
+cmsStage*          _cmsStageAllocToneCurvesWithSlopeLimit(cmsContext ContextID, cmsUInt32Number nChannels, cmsToneCurve* const Curves[], int SlopeLimit);
+cmsFloat32Number   _cmsEvalToneCurveFloatWithSlopeLimit(const cmsToneCurve* Curve, cmsFloat32Number v, int SlopeLimit);
 
 
 // Pipeline Evaluator (in floating point)
@@ -932,8 +940,8 @@ struct _cmsPipeline_struct {
 // Read tags using low-level function, provide necessary glue code to adapt versions, etc. All those return a brand new copy
 // of the LUTS, since ownership of original is up to the profile. The user should free allocated resources.
 
-CMSCHECKPOINT cmsPipeline* CMSEXPORT _cmsReadInputLUT(cmsHPROFILE hProfile, cmsUInt32Number Intent);
-CMSCHECKPOINT cmsPipeline* CMSEXPORT _cmsReadOutputLUT(cmsHPROFILE hProfile, cmsUInt32Number Intent);
+CMSCHECKPOINT cmsPipeline* CMSEXPORT _cmsReadInputLUT(cmsHPROFILE hProfile, cmsUInt32Number Intent, int SlopeLimit);
+CMSCHECKPOINT cmsPipeline* CMSEXPORT _cmsReadOutputLUT(cmsHPROFILE hProfile, cmsUInt32Number Intent, int SlopeLimit);
 CMSCHECKPOINT cmsPipeline* CMSEXPORT _cmsReadDevicelinkLUT(cmsHPROFILE hProfile, cmsUInt32Number Intent);
 
 // Special values

@@ -524,9 +524,14 @@ cmsPipeline* DefaultICCintents(cmsContext       ContextID,
     cmsColorSpaceSignature ColorSpaceIn, ColorSpaceOut = cmsSigLabData, CurrentColorSpace;
     cmsProfileClassSignature ClassSig;
     cmsUInt32Number  i, Intent;
-
+    int SlopeLimit = 0;
+    
     // For safety
     if (nProfiles == 0) return NULL;
+
+    // Register slope limit flags
+    if (dwFlags & cmsFLAGS_SLOPE_LIMIT_16) SlopeLimit = 16;
+    else if (dwFlags & cmsFLAGS_SLOPE_LIMIT_32) SlopeLimit = 32;
 
     // Allocate an empty LUT for holding the result. 0 as channel count means 'undefined'
     Result = cmsPipelineAlloc(ContextID, 0, 0);
@@ -596,13 +601,13 @@ cmsPipeline* DefaultICCintents(cmsContext       ContextID,
 
             if (lIsInput) {
                 // Input direction means non-pcs connection, so proceed like devicelinks
-                Lut = _cmsReadInputLUT(hProfile, Intent);
+                Lut = _cmsReadInputLUT(hProfile, Intent, -SlopeLimit);    // negative slope limit means input slope limiting
                 if (Lut == NULL) goto Error;
             }
             else {
 
                 // Output direction means PCS connection. Intent may apply here
-                Lut = _cmsReadOutputLUT(hProfile, Intent);
+                Lut = _cmsReadOutputLUT(hProfile, Intent, SlopeLimit);
                 if (Lut == NULL) goto Error;
 
 
@@ -945,8 +950,8 @@ cmsPipeline* BlackPreservingKPlaneIntents(cmsContext     ContextID,
     memset(&bp, 0, sizeof(bp));
 
     // We need the input LUT of the last profile, assuming this one is responsible of
-    // black generation. This LUT will be searched in inverse order.
-    bp.LabK2cmyk = _cmsReadInputLUT(hProfiles[nProfiles-1], INTENT_RELATIVE_COLORIMETRIC);
+    // black generation. This LUT will be seached in inverse order.
+    bp.LabK2cmyk = _cmsReadInputLUT(hProfiles[nProfiles-1], INTENT_RELATIVE_COLORIMETRIC, 0);
     if (bp.LabK2cmyk == NULL) goto Cleanup;
 
     // Get total area coverage (in 0..1 domain)
