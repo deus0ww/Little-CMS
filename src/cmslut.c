@@ -67,7 +67,8 @@ cmsStage* CMSEXPORT _cmsStageAllocPlaceholder(cmsContext ContextID,
                                 _cmsStageEvalFn     EvalPtr,
                                 _cmsStageDupElemFn  DupElemPtr,
                                 _cmsStageFreeElemFn FreePtr,
-                                void*               Data)
+                                void*               Data,
+                                int                 SlopeLimit)
 {
     return _cmsStageAllocPlaceholderWithSlopeLimit(ContextID,
                                     Type,
@@ -98,7 +99,8 @@ cmsStage* CMSEXPORT cmsStageAllocIdentity(cmsContext ContextID, cmsUInt32Number 
                                    EvaluateIdentity,
                                    NULL,
                                    NULL,
-                                   NULL);
+                                   NULL,
+                                   0);
  }
 
 // Conversion functions. From floating point to 16 bits
@@ -415,7 +417,7 @@ cmsStage*  CMSEXPORT cmsStageAllocMatrix(cmsContext ContextID, cmsUInt32Number R
     if (n < Rows || n < Cols) return NULL;
 
     NewMPE = _cmsStageAllocPlaceholder(ContextID, cmsSigMatrixElemType, Cols, Rows,
-                                     EvaluateMatrix, MatrixElemDup, MatrixElemTypeFree, NULL );
+                                     EvaluateMatrix, MatrixElemDup, MatrixElemTypeFree, NULL, 0 );
     if (NewMPE == NULL) return NULL;
 
 
@@ -582,7 +584,7 @@ cmsStage* CMSEXPORT cmsStageAllocCLut16bitGranular(cmsContext ContextID,
     }
 
     NewMPE = _cmsStageAllocPlaceholder(ContextID, cmsSigCLutElemType, inputChan, outputChan,
-                                     EvaluateCLUTfloatIn16, CLUTElemDup, CLutElemTypeFree, NULL );
+                                     EvaluateCLUTfloatIn16, CLUTElemDup, CLutElemTypeFree, NULL, 0 );
 
     if (NewMPE == NULL) return NULL;
 
@@ -673,7 +675,7 @@ cmsStage* CMSEXPORT cmsStageAllocCLutFloatGranular(cmsContext ContextID, const c
     }
 
     NewMPE = _cmsStageAllocPlaceholder(ContextID, cmsSigCLutElemType, inputChan, outputChan,
-                                             EvaluateCLUTfloat, CLUTElemDup, CLutElemTypeFree, NULL);
+                                             EvaluateCLUTfloat, CLUTElemDup, CLutElemTypeFree, NULL, 0);
     if (NewMPE == NULL) return NULL;
 
 
@@ -988,7 +990,7 @@ void EvaluateLab2XYZ(const cmsFloat32Number In[],
 // No dup or free routines needed, as the structure has no pointers in it.
 cmsStage* CMSEXPORT _cmsStageAllocLab2XYZ(cmsContext ContextID)
 {
-    return _cmsStageAllocPlaceholder(ContextID, cmsSigLab2XYZElemType, 3, 3, EvaluateLab2XYZ, NULL, NULL, NULL);
+    return _cmsStageAllocPlaceholder(ContextID, cmsSigLab2XYZElemType, 3, 3, EvaluateLab2XYZ, NULL, NULL, NULL, 0);
 }
 
 // ********************************************************************************
@@ -1164,7 +1166,7 @@ void Clipper(const cmsFloat32Number In[], cmsFloat32Number Out[], const cmsStage
 cmsStage*  _cmsStageClipNegatives(cmsContext ContextID, cmsUInt32Number nChannels)
 {
        return _cmsStageAllocPlaceholder(ContextID, cmsSigClipNegativesElemType,
-              nChannels, nChannels, Clipper, NULL, NULL, NULL);
+              nChannels, nChannels, Clipper, NULL, NULL, NULL, 0);
 }
 
 // ********************************************************************************
@@ -1198,7 +1200,7 @@ void EvaluateXYZ2Lab(const cmsFloat32Number In[], cmsFloat32Number Out[], const 
 
 cmsStage* CMSEXPORT _cmsStageAllocXYZ2Lab(cmsContext ContextID)
 {
-    return _cmsStageAllocPlaceholder(ContextID, cmsSigXYZ2LabElemType, 3, 3, EvaluateXYZ2Lab, NULL, NULL, NULL);
+    return _cmsStageAllocPlaceholder(ContextID, cmsSigXYZ2LabElemType, 3, 3, EvaluateXYZ2Lab, NULL, NULL, NULL, 0);
 
 }
 

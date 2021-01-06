@@ -937,7 +937,7 @@ cmsStage* StageAllocNegate(cmsContext ContextID)
 {
     return _cmsStageAllocPlaceholder(ContextID,
                  SigNegateType, 3, 3, EvaluateNegate, 
-                 NULL, NULL, NULL);
+                 NULL, NULL, NULL, 0);
 }
 
 static

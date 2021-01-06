@@ -744,7 +744,7 @@ cmsStage* CMSEXPORT _cmsStageAllocNamedColor(cmsNAMEDCOLORLIST* NamedColorList, 
                                    UsePCS ? EvalNamedColorPCS : EvalNamedColor,
                                    DupNamedColorList,
                                    FreeNamedColorList,
-                                   cmsDupNamedColorList(NamedColorList));
+                                   cmsDupNamedColorList(NamedColorList), 0);
 
 }
 
