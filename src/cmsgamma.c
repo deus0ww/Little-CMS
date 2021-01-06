@@ -979,8 +979,8 @@ cmsToneCurve* CMSEXPORT cmsJoinToneCurve(cmsContext ContextID,
     for (i=0; i <  nResultingPoints; i++) {
 
         t = (cmsFloat32Number) i / (nResultingPoints-1);
-        x = cmsEvalToneCurveFloat(X,  t);
-        Res[i] = cmsEvalToneCurveFloat(Yreversed, x);
+        x = cmsEvalToneCurveFloat(X,  t, 0);
+        Res[i] = cmsEvalToneCurveFloat(Yreversed, x, 0);
     }
 
     // Allocate space for output
@@ -1468,7 +1468,7 @@ cmsFloat64Number CMSEXPORT cmsEstimateGamma(const cmsToneCurve* t, cmsFloat64Num
     for (i=1; i < (MAX_NODES_IN_CURVE-1); i++) {
 
         x = (cmsFloat64Number) i / (MAX_NODES_IN_CURVE-1);
-        y = (cmsFloat64Number) cmsEvalToneCurveFloat(t, (cmsFloat32Number) x);
+        y = (cmsFloat64Number) cmsEvalToneCurveFloat(t, (cmsFloat32Number) x, 0);
 
         // Avoid 7% on lower part to prevent
         // artifacts due to linear ramps

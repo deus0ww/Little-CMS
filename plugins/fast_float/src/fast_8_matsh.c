@@ -87,7 +87,7 @@ void FillFirstShaper(cmsS1Fixed14Number* Table, cmsToneCurve* Curve)
     for (i=0; i < 256; i++) {
         
         R   = (cmsFloat32Number) (i / 255.0);
-        y   = cmsEvalToneCurveFloat(Curve, R);        
+        y   = cmsEvalToneCurveFloat(Curve, R, 0);        
 
         Table[i] = DOUBLE_TO_1FIXED14(y);
     }
@@ -105,7 +105,7 @@ void FillSecondShaper(cmsUInt8Number* Table, cmsToneCurve* Curve)
     for (i=0; i < 0x4001; i++) {
 
         R   = (cmsFloat32Number) (i / 16384.0f);
-        Val = cmsEvalToneCurveFloat(Curve, R);    
+        Val = cmsEvalToneCurveFloat(Curve, R, 0);    
         w = (cmsInt32Number) (Val * 255.0f + 0.5f);
         if (w < 0) w = 0;
         if (w > 255) w = 255;

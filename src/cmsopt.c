@@ -1583,7 +1583,7 @@ void FillFirstShaper(cmsS1Fixed14Number* Table, cmsToneCurve* Curve)
     for (i=0; i < 256; i++) {
 
         R   = (cmsFloat32Number) (i / 255.0);
-        y   = cmsEvalToneCurveFloat(Curve, R);
+        y   = cmsEvalToneCurveFloat(Curve, R, 0);
 
         if (y < 131072.0)
             Table[i] = DOUBLE_TO_1FIXED14(y);

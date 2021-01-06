@@ -2424,7 +2424,7 @@ cmsInt32Number CheckGammaCreationFlt(void)
     for (i=0; i < 0xffff; i++) {
 
         in = (cmsFloat32Number) (i / 65535.0);
-        out = cmsEvalToneCurveFloat(LinGamma, in);
+        out = cmsEvalToneCurveFloat(LinGamma, in, 0);
         if (fabs(in - out) > (1/65535.0)) {
             Fail("(lin gamma): Must be %f, But is %f : ", in, out);
             cmsFreeToneCurve(LinGamma);
@@ -2504,7 +2504,7 @@ cmsInt32Number CheckGammaFloatTable(cmsFloat64Number g)
     for (i=0; i <= 0xffff; i++) {
 
         in = (cmsFloat32Number) (i / 65535.0);
-        out = cmsEvalToneCurveFloat(Curve, in);
+        out = cmsEvalToneCurveFloat(Curve, in, 0);
         val = pow(in, g);
 
         Err = fabs(val - out);
@@ -2557,7 +2557,7 @@ cmsInt32Number CheckGammaWordTable(cmsFloat64Number g)
     for (i=0; i <= 0xffff; i++) {
 
         in = (cmsFloat32Number) (i / 65535.0);
-        out = cmsEvalToneCurveFloat(Curve, in);
+        out = cmsEvalToneCurveFloat(Curve, in, 0);
         val = pow(in, g);
 
         Err = fabs(val - out);
@@ -2743,7 +2743,7 @@ cmsToneCurve* CombineGammaFloat(cmsToneCurve* g1, cmsToneCurve* g2)
     for (i=0; i < 256; i++) {
 
         f = (cmsFloat32Number) i / 255.0F;
-        f = cmsEvalToneCurveFloat(g2, cmsEvalToneCurveFloat(g1, f));
+        f = cmsEvalToneCurveFloat(g2, cmsEvalToneCurveFloat(g1, f, 0), 0);
 
         Tab[i] = (cmsUInt16Number) floor(f * 65535.0 + 0.5);
     }
@@ -2981,8 +2981,8 @@ cmsBool CheckSingleParametric(const char* Name, dblfnptr fn, cmsInt32Number Type
         cmsFloat32Number y_fn, y_param, x_param, y_param2;
 
         y_fn = fn(x, Params);
-        y_param = cmsEvalToneCurveFloat(tc, x);
-        x_param = cmsEvalToneCurveFloat(tc_1, y_param);
+        y_param = cmsEvalToneCurveFloat(tc, x, 0);
+        x_param = cmsEvalToneCurveFloat(tc_1, y_param, 0);
 
         y_param2 = fn(x_param, Params);
 
@@ -7587,7 +7587,7 @@ cmsInt32Number CheckParametricRec709(void)
     for (i=0; i < 256; i++)
     {
         cmsFloat32Number n = (cmsFloat32Number) i / 255.0F;
-        cmsUInt16Number f1 = (cmsUInt16Number) floor(255.0 * cmsEvalToneCurveFloat(t, n) + 0.5);
+        cmsUInt16Number f1 = (cmsUInt16Number) floor(255.0 * cmsEvalToneCurveFloat(t, n, 0) + 0.5);
         cmsUInt16Number f2 = (cmsUInt16Number) floor(255.0*Rec709((double) i / 255.0) + 0.5);
 
         if (f1 != f2) 
@@ -7619,7 +7619,7 @@ static cmsInt32Number TestCurve( const char* label, cmsToneCurve* curve, Functio
         
         cmsFloat32Number x = (cmsFloat32Number)i / (kNumPoints*3 - 1);
         cmsFloat32Number expectedY = fn(x);
-        cmsFloat32Number out = cmsEvalToneCurveFloat( curve, x);
+        cmsFloat32Number out = cmsEvalToneCurveFloat( curve, x, 0);
         
         if (!IsGoodVal(label, expectedY, out, FLOAT_PRECISSION)) {
             ok = 0;

@@ -4804,7 +4804,7 @@ cmsBool Type_vcgt_Write(struct _cms_typehandler_struct* self, cmsIOHANDLER* io, 
         for (i=0; i < 3; i++) {
             for (j=0; j < 256; j++) {
 
-                cmsFloat32Number v = cmsEvalToneCurveFloat(Curves[i], (cmsFloat32Number) (j / 255.0));
+                cmsFloat32Number v = cmsEvalToneCurveFloat(Curves[i], (cmsFloat32Number) (j / 255.0, 0));
                 cmsUInt16Number  n = _cmsQuickSaturateWord(v * 65535.0);
 
                 if (!_cmsWriteUInt16Number(io, n)) return FALSE;

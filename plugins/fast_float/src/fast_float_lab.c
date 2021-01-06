@@ -96,7 +96,7 @@ void tabulateSigmoid(cmsContext ContextID, cmsInt32Number type, cmsFloat32Number
         {
             cmsFloat32Number v = (cmsFloat32Number)i / (cmsFloat32Number)(tablePoints - 1);
 
-            table[i] = fclamp(cmsEvalToneCurveFloat(original, v));
+            table[i] = fclamp(cmsEvalToneCurveFloat(original, v, 0));
         }
      
         cmsFreeToneCurve(original);

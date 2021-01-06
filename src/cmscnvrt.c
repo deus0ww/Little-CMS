@@ -875,7 +875,7 @@ int BlackPreservingSampler(CMSREGISTER const cmsUInt16Number In[], CMSREGISTER c
         Inf[i] = (cmsFloat32Number) (In[i] / 65535.0);
 
     // Get the K across Tone curve
-    LabK[3] = cmsEvalToneCurveFloat(bp ->KTone, Inf[3]);
+    LabK[3] = cmsEvalToneCurveFloat(bp ->KTone, Inf[3], 0);
 
     // If going across black only, keep black only
     if (In[0] == 0 && In[1] == 0 && In[2] == 0) {

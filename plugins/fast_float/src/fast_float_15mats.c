@@ -93,7 +93,7 @@ void FillShaper(cmsUInt16Number* Table, cmsToneCurve* Curve)
        for (i = 0; i < MAX_NODES_IN_CURVE; i++) {
 
               R = (cmsFloat32Number)i / (cmsFloat32Number) (MAX_NODES_IN_CURVE - 1);
-              y = cmsEvalToneCurveFloat(Curve, R);
+              y = cmsEvalToneCurveFloat(Curve, R, 0);
 
               Table[i] = (cmsUInt16Number) DOUBLE_TO_1FIXED15(y);
        }

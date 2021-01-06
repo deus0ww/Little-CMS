@@ -314,10 +314,10 @@ cmsInt32Number CheckInterp1DPlugin(void)
     }
     
     // Do some interpolations with the plugin
-    if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(Sampled1D, 0.10f), 0.10, 0.01)) goto Error;
-    if (!IsGoodVal("0.13", cmsEvalToneCurveFloat(Sampled1D, 0.13f), 0.10, 0.01)) goto Error;
-    if (!IsGoodVal("0.55", cmsEvalToneCurveFloat(Sampled1D, 0.55f), 0.50, 0.01)) goto Error;
-    if (!IsGoodVal("0.9999", cmsEvalToneCurveFloat(Sampled1D, 0.9999f), 0.90, 0.01)) goto Error;
+    if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(Sampled1D, 0.10f, 0), 0.10, 0.01)) goto Error;
+    if (!IsGoodVal("0.13", cmsEvalToneCurveFloat(Sampled1D, 0.13f, 0), 0.10, 0.01)) goto Error;
+    if (!IsGoodVal("0.55", cmsEvalToneCurveFloat(Sampled1D, 0.55f, 0), 0.50, 0.01)) goto Error;
+    if (!IsGoodVal("0.9999", cmsEvalToneCurveFloat(Sampled1D, 0.9999f, 0), 0.90, 0.01)) goto Error;
 
     cmsFreeToneCurve(Sampled1D);
     cmsDeleteContext(ctx);
@@ -331,10 +331,10 @@ cmsInt32Number CheckInterp1DPlugin(void)
     }
     
     // Now without the plug-in
-    if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(Sampled1D, 0.10f), 0.10, 0.001)) goto Error;
-    if (!IsGoodVal("0.13", cmsEvalToneCurveFloat(Sampled1D, 0.13f), 0.13, 0.001)) goto Error;
-    if (!IsGoodVal("0.55", cmsEvalToneCurveFloat(Sampled1D, 0.55f), 0.55, 0.001)) goto Error;
-    if (!IsGoodVal("0.9999", cmsEvalToneCurveFloat(Sampled1D, 0.9999f), 0.9999, 0.001)) goto Error;
+    if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(Sampled1D, 0.10f, 0), 0.10, 0.001)) goto Error;
+    if (!IsGoodVal("0.13", cmsEvalToneCurveFloat(Sampled1D, 0.13f, 0), 0.13, 0.001)) goto Error;
+    if (!IsGoodVal("0.55", cmsEvalToneCurveFloat(Sampled1D, 0.55f, 0), 0.55, 0.001)) goto Error;
+    if (!IsGoodVal("0.9999", cmsEvalToneCurveFloat(Sampled1D, 0.9999f, 0), 0.9999, 0.001)) goto Error;
 
     cmsFreeToneCurve(Sampled1D);
     return 1;
@@ -581,26 +581,26 @@ cmsInt32Number CheckParametricCurvePlugin(void)
     reverse_cosinus = cmsReverseToneCurve(cosinus);
 
 
-     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(sinus, 0.10f), sin(0.10 * M_PI) , 0.001)) goto Error;
-     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(sinus, 0.60f), sin(0.60* M_PI), 0.001)) goto Error;
-     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(sinus, 0.90f), sin(0.90* M_PI), 0.001)) goto Error;
+     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(sinus, 0.10f, 0), sin(0.10 * M_PI) , 0.001)) goto Error;
+     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(sinus, 0.60f, 0), sin(0.60* M_PI), 0.001)) goto Error;
+     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(sinus, 0.90f, 0), sin(0.90* M_PI), 0.001)) goto Error;
 
-     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(cosinus, 0.10f), cos(0.10* M_PI), 0.001)) goto Error;
-     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(cosinus, 0.60f), cos(0.60* M_PI), 0.001)) goto Error;
-     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(cosinus, 0.90f), cos(0.90* M_PI), 0.001)) goto Error;
+     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(cosinus, 0.10f, 0), cos(0.10* M_PI), 0.001)) goto Error;
+     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(cosinus, 0.60f, 0), cos(0.60* M_PI), 0.001)) goto Error;
+     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(cosinus, 0.90f, 0), cos(0.90* M_PI), 0.001)) goto Error;
 
-     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(tangent, 0.10f), tan(0.10* M_PI), 0.001)) goto Error;
-     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(tangent, 0.60f), tan(0.60* M_PI), 0.001)) goto Error;
-     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(tangent, 0.90f), tan(0.90* M_PI), 0.001)) goto Error;
+     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(tangent, 0.10f, 0), tan(0.10* M_PI), 0.001)) goto Error;
+     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(tangent, 0.60f, 0), tan(0.60* M_PI), 0.001)) goto Error;
+     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(tangent, 0.90f, 0), tan(0.90* M_PI), 0.001)) goto Error;
 
      
-     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(reverse_sinus, 0.10f), asin(0.10)/M_PI, 0.001)) goto Error;
-     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(reverse_sinus, 0.60f), asin(0.60)/M_PI, 0.001)) goto Error;
-     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(reverse_sinus, 0.90f), asin(0.90)/M_PI, 0.001)) goto Error;
+     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(reverse_sinus, 0.10f, 0), asin(0.10)/M_PI, 0.001)) goto Error;
+     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(reverse_sinus, 0.60f, 0), asin(0.60)/M_PI, 0.001)) goto Error;
+     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(reverse_sinus, 0.90f, 0), asin(0.90)/M_PI, 0.001)) goto Error;
 
-     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(reverse_cosinus, 0.10f), acos(0.10)/M_PI, 0.001)) goto Error;
-     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(reverse_cosinus, 0.60f), acos(0.60)/M_PI, 0.001)) goto Error;
-     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(reverse_cosinus, 0.90f), acos(0.90)/M_PI, 0.001)) goto Error;
+     if (!IsGoodVal("0.10", cmsEvalToneCurveFloat(reverse_cosinus, 0.10f, 0), acos(0.10)/M_PI, 0.001)) goto Error;
+     if (!IsGoodVal("0.60", cmsEvalToneCurveFloat(reverse_cosinus, 0.60f, 0), acos(0.60)/M_PI, 0.001)) goto Error;
+     if (!IsGoodVal("0.90", cmsEvalToneCurveFloat(reverse_cosinus, 0.90f, 0), acos(0.90)/M_PI, 0.001)) goto Error;
 
      cmsFreeToneCurve(sinus);
      cmsFreeToneCurve(cosinus);

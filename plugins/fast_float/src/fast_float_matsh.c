@@ -80,7 +80,7 @@ void FillShaper(cmsFloat32Number* Table, cmsToneCurve* Curve)
         
            R = (cmsFloat32Number) i / (cmsFloat32Number) (MAX_NODES_IN_CURVE - 1);
 
-        Table[i] = cmsEvalToneCurveFloat(Curve, R);
+        Table[i] = cmsEvalToneCurveFloat(Curve, R, 0);
     }
 }
 
