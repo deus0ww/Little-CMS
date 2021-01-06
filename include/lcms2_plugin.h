@@ -502,7 +502,7 @@ CMSAPI cmsStage* CMSEXPORT _cmsStageAllocPlaceholder(cmsContext ContextID,
                                 _cmsStageDupElemFn    DupElemPtr,         // Points to a fn that duplicates the stage
                                 _cmsStageFreeElemFn   FreePtr,            // Points to a fn that sets the element free
                                 void*                 Data,               // A generic pointer to whatever memory needed by the element
-                                int                   SlopeLimit)
+                                int                   SlopeLimit);
 typedef struct {
       cmsPluginBase     base;
       cmsTagTypeHandler Handler;
