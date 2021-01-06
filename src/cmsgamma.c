@@ -1392,12 +1392,7 @@ cmsInt32Number  CMSEXPORT cmsGetToneCurveParametricType(const cmsToneCurve* t)
 }
 
 // We need accuracy this time
-cmsFloat32Number CMSEXPORT cmsEvalToneCurveFloat(const cmsToneCurve* Curve, cmsFloat32Number v)
-{
-    return _cmsEvalToneCurveFloatWithSlopeLimit(Curve, v, 0);
-}
-
-cmsFloat32Number _cmsEvalToneCurveFloatWithSlopeLimit(const cmsToneCurve* Curve, cmsFloat32Number v, int SlopeLimit)
+cmsFloat32Number CMSEXPORT cmsEvalToneCurveFloat(const cmsToneCurve* Curve, cmsFloat32Number v, int SlopeLimit)
 {
     _cmsAssert(Curve != NULL);
     

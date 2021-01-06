@@ -183,7 +183,7 @@ cmsPipeline* BuildGrayInputMatrixPipeline(cmsHPROFILE hProfile, int SlopeLimit)
         LabCurves[2] = EmptyTab;
 
         if (!cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocMatrix(ContextID, 3,  1, OneToThreeInputMatrix, NULL)) ||
-            !cmsPipelineInsertStage(Lut, cmsAT_END, _cmsStageAllocToneCurvesWithSlopeLimit(ContextID, 3, LabCurves, SlopeLimit))) {
+            !cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, 3, LabCurves, SlopeLimit))) {
                 cmsFreeToneCurve(EmptyTab);
                 goto Error;
         }
@@ -193,7 +193,7 @@ cmsPipeline* BuildGrayInputMatrixPipeline(cmsHPROFILE hProfile, int SlopeLimit)
     }
     else  {
 
-        if (!cmsPipelineInsertStage(Lut, cmsAT_END, _cmsStageAllocToneCurvesWithSlopeLimit(ContextID, 1, &GrayTRC, SlopeLimit)) ||
+        if (!cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, 1, &GrayTRC, SlopeLimit)) ||
             !cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocMatrix(ContextID, 3,  1, GrayInputMatrix, NULL)))
             goto Error;
     }
@@ -236,7 +236,7 @@ cmsPipeline* BuildRGBInputMatrixShaper(cmsHPROFILE hProfile, int SlopeLimit)
     Lut = cmsPipelineAlloc(ContextID, 3, 3);
     if (Lut != NULL) {
 
-        if (!cmsPipelineInsertStage(Lut, cmsAT_END, _cmsStageAllocToneCurvesWithSlopeLimit(ContextID, 3, Shapes, SlopeLimit)) ||
+        if (!cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, 3, Shapes, SlopeLimit)) ||
             !cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocMatrix(ContextID, 3, 3, (cmsFloat64Number*) &Mat, NULL)))
             goto Error;
 
@@ -438,7 +438,7 @@ cmsPipeline* BuildGrayOutputPipeline(cmsHPROFILE hProfile, int SlopeLimit)
             goto Error;
     }
 
-    if (!cmsPipelineInsertStage(Lut, cmsAT_END, _cmsStageAllocToneCurvesWithSlopeLimit(ContextID, 1, &RevGrayTRC, SlopeLimit)))
+    if (!cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, 1, &RevGrayTRC, SlopeLimit)))
         goto Error;
 
     cmsFreeToneCurve(RevGrayTRC);
@@ -502,7 +502,7 @@ cmsPipeline* BuildRGBOutputMatrixShaper(cmsHPROFILE hProfile, int SlopeLimit)
         }
 
         if (!cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocMatrix(ContextID, 3, 3, (cmsFloat64Number*) &Inv, NULL)) ||
-            !cmsPipelineInsertStage(Lut, cmsAT_END, _cmsStageAllocToneCurvesWithSlopeLimit(ContextID, 3, InvShapes, SlopeLimit)))
+            !cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, 3, InvShapes, SlopeLimit)))
             goto Error;
     }
 
