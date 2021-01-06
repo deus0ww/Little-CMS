@@ -1026,7 +1026,7 @@ cmsStage* _cmsStageAllocLabV2ToV4curves(cmsContext ContextID)
         LabTable[j] ->Table16[257] = 0xffff;
     }
 
-    mpe = cmsStageAllocToneCurves(ContextID, 3, LabTable);
+    mpe = cmsStageAllocToneCurves(ContextID, 3, LabTable, 0);
     cmsFreeToneCurveTriple(LabTable);
 
     if (mpe == NULL) return NULL;

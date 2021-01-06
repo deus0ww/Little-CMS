@@ -1002,7 +1002,7 @@ cmsPipeline* BlackPreservingKPlaneIntents(cmsContext     ContextID,
 
     // We need the input LUT of the last profile, assuming this one is responsible of
     // black generation. This LUT will be searched in inverse order.
-    bp.LabK2cmyk = _cmsReadInputLUT(hLastProfile, INTENT_RELATIVE_COLORIMETRIC);
+    bp.LabK2cmyk = _cmsReadInputLUT(hLastProfile, INTENT_RELATIVE_COLORIMETRIC, 0);
     if (bp.LabK2cmyk == NULL) goto Cleanup;
 
     // Get total area coverage (in 0..1 domain)
