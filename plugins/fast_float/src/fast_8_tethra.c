@@ -445,13 +445,13 @@ cmsBool Optimize8BitRGBTransform(_cmsTransform2Fn* TransformFn,
     LutPlusCurves = cmsPipelineDup(OriginalLut);
     if (LutPlusCurves == NULL) goto Error;
 
-    cmsPipelineInsertStage(LutPlusCurves, cmsAT_BEGIN, cmsStageAllocToneCurves(ContextID, 3, TransReverse));
+    cmsPipelineInsertStage(LutPlusCurves, cmsAT_BEGIN, cmsStageAllocToneCurves(ContextID, 3, TransReverse, 0));
 
     // Create the result LUT
     OptimizedLUT = cmsPipelineAlloc(cmsGetPipelineContextID(OriginalLut), 3, cmsPipelineOutputChannels(OriginalLut));
     if (OptimizedLUT == NULL) goto Error;
 
-    OptimizedPrelinMpe = cmsStageAllocToneCurves(ContextID, 3, Trans);
+    OptimizedPrelinMpe = cmsStageAllocToneCurves(ContextID, 3, Trans, 0);
 
     // Create and insert the curves at the beginning    
     cmsPipelineInsertStage(OptimizedLUT, cmsAT_BEGIN, OptimizedPrelinMpe);

@@ -317,7 +317,7 @@ cmsStage* CMSEXPORT cmsStageAllocToneCurves(cmsContext ContextID, cmsUInt32Numbe
 // Create a bunch of identity curves
 cmsStage* CMSEXPORT _cmsStageAllocIdentityCurves(cmsContext ContextID, cmsUInt32Number nChannels)
 {
-    cmsStage* mpe = cmsStageAllocToneCurves(ContextID, nChannels, NULL);
+    cmsStage* mpe = cmsStageAllocToneCurves(ContextID, nChannels, NULL, 0);
 
     if (mpe == NULL) return NULL;
     mpe ->Implements = cmsSigIdentityElemType;
@@ -1215,7 +1215,7 @@ cmsStage* _cmsStageAllocLabPrelin(cmsContext ContextID)
     LabTable[1] = cmsBuildParametricToneCurve(ContextID, 108, Params);
     LabTable[2] = cmsBuildParametricToneCurve(ContextID, 108, Params);
 
-    return cmsStageAllocToneCurves(ContextID, 3, LabTable);
+    return cmsStageAllocToneCurves(ContextID, 3, LabTable, 0);
 }
 
 

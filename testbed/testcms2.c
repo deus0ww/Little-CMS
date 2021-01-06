@@ -3193,7 +3193,7 @@ void Add3GammaCurves(cmsPipeline* lut, cmsFloat64Number Curve)
     id3[1] = id;
     id3[2] = id;
 
-    cmsPipelineInsertStage(lut, cmsAT_END, cmsStageAllocToneCurves(DbgThread(), 3, id3));
+    cmsPipelineInsertStage(lut, cmsAT_END, cmsStageAllocToneCurves(DbgThread(), 3, id3, 0));
 
     cmsFreeToneCurve(id);
 }
@@ -4801,7 +4801,7 @@ cmsInt32Number CheckMPE(cmsInt32Number Pass,  cmsHPROFILE hProfile, cmsTagSignat
             AddIdentityCLUTfloat(Lut);
 
             G[0] = G[1] = G[2] = CreateSegmentedCurve();
-            cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocToneCurves(DbgThread(), 3, G));
+            cmsPipelineInsertStage(Lut, cmsAT_END, cmsStageAllocToneCurves(DbgThread(), 3, G, 0));
             cmsFreeToneCurve(G[0]);
 
             rc = cmsWriteTag(hProfile, tag, Lut);

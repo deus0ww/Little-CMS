@@ -314,7 +314,7 @@ cmsHPROFILE CMSEXPORT cmsCreateLinearizationDeviceLinkTHR(cmsContext ContextID,
 
 
     // Copy tables to Pipeline
-    if (!cmsPipelineInsertStage(Pipeline, cmsAT_BEGIN, cmsStageAllocToneCurves(ContextID, nChannels, TransferFunctions)))
+    if (!cmsPipelineInsertStage(Pipeline, cmsAT_BEGIN, cmsStageAllocToneCurves(ContextID, nChannels, TransferFunctions, 0)))
         goto Error;
 
     // Create tags
@@ -853,8 +853,8 @@ cmsHPROFILE CMSEXPORT cmsCreateNULLProfileTHR(cmsContext ContextID)
     if (LUT == NULL) goto Error;
     
     EmptyTab[0] = EmptyTab[1] = EmptyTab[2] = cmsBuildTabulatedToneCurve16(ContextID, 2, Zero);
-    PostLin = cmsStageAllocToneCurves(ContextID, 3, EmptyTab);
-    OutLin  = cmsStageAllocToneCurves(ContextID, 1, EmptyTab);
+    PostLin = cmsStageAllocToneCurves(ContextID, 3, EmptyTab, 0);
+    OutLin  = cmsStageAllocToneCurves(ContextID, 1, EmptyTab, 0);
     cmsFreeToneCurve(EmptyTab[0]);
 
     if (!cmsPipelineInsertStage(LUT, cmsAT_END, PostLin))

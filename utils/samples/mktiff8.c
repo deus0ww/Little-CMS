@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
     AToB0 = cmsPipelineAlloc(0, 3, 3);
 
 	cmsPipelineInsertStage(AToB0, 
-		cmsAT_BEGIN, cmsStageAllocToneCurves(0, 3, PreLinear));
+		cmsAT_BEGIN, cmsStageAllocToneCurves(0, 3, PreLinear, 0));
 
 	cmsSetColorSpace(hProfile, cmsSigLabData);
 	cmsSetPCS(hProfile, cmsSigLabData);

@@ -1664,7 +1664,7 @@ cmsBool  Read8bitTables(cmsContext ContextID, cmsIOHANDLER* io, cmsPipeline* lut
     _cmsFree(ContextID, Temp);
     Temp = NULL;
 
-    if (!cmsPipelineInsertStage(lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, nChannels, Tables)))
+    if (!cmsPipelineInsertStage(lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, nChannels, Tables, 0)))
         goto Error;
 
     for (i=0; i < nChannels; i++)
@@ -2001,7 +2001,7 @@ cmsBool  Read16bitTables(cmsContext ContextID, cmsIOHANDLER* io, cmsPipeline* lu
 
 
     // Add the table (which may certainly be an identity, but this is up to the optimizer, not the reading code)
-    if (!cmsPipelineInsertStage(lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, nChannels, Tables)))
+    if (!cmsPipelineInsertStage(lut, cmsAT_END, cmsStageAllocToneCurves(ContextID, nChannels, Tables, 0)))
         goto Error;
 
     for (i=0; i < nChannels; i++)
@@ -2438,7 +2438,7 @@ cmsStage* ReadSetOfCurves(struct _cms_typehandler_struct* self, cmsIOHANDLER* io
 
     }
 
-    Lin = cmsStageAllocToneCurves(self ->ContextID, nCurves, Curves);
+    Lin = cmsStageAllocToneCurves(self ->ContextID, nCurves, Curves, 0);
 
 Error:
     for (i=0; i < nCurves; i++)
@@ -4074,7 +4074,7 @@ void *Type_MPEcurve_Read(struct _cms_typehandler_struct* self, cmsIOHANDLER* io,
 
     if (ReadPositionTable(self, io, InputChans, BaseOffset, GammaTables, ReadMPECurve)) {
 
-        mpe = cmsStageAllocToneCurves(self ->ContextID, InputChans, GammaTables);
+        mpe = cmsStageAllocToneCurves(self ->ContextID, InputChans, GammaTables, 0);
     }
     else {
         mpe = NULL;
