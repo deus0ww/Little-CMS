@@ -59,29 +59,6 @@ cmsStage* CMSEXPORT _cmsStageAllocPlaceholder(cmsContext ContextID,
     return ph;
 }
 
-
-cmsStage* CMSEXPORT _cmsStageAllocPlaceholder(cmsContext ContextID,
-                                cmsStageSignature   Type,
-                                cmsUInt32Number     InputChannels,
-                                cmsUInt32Number     OutputChannels,
-                                _cmsStageEvalFn     EvalPtr,
-                                _cmsStageDupElemFn  DupElemPtr,
-                                _cmsStageFreeElemFn FreePtr,
-                                void*               Data,
-                                int                 SlopeLimit)
-{
-    return _cmsStageAllocPlaceholderWithSlopeLimit(ContextID,
-                                    Type,
-                                    InputChannels,
-                                    OutputChannels,
-                                    EvalPtr,
-                                    DupElemPtr,
-                                    FreePtr,
-                                    Data,
-                                    0);
-}
-
-
 static
 void EvaluateIdentity(const cmsFloat32Number In[],
                             cmsFloat32Number Out[],

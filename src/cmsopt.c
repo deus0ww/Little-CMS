@@ -1173,7 +1173,7 @@ cmsBool OptimizeByComputingLinearization(cmsPipeline** Lut, cmsUInt32Number Inte
     OptimizedLUT = cmsPipelineAlloc(OriginalLut ->ContextID, OriginalLut ->InputChannels, OriginalLut ->OutputChannels);
     if (OptimizedLUT == NULL) goto Error;
 
-    OptimizedPrelinMpe = cmsStageAllocToneCurves(OriginalLut ->ContextID, OriginalLut ->InputChannels, Trans);
+    OptimizedPrelinMpe = cmsStageAllocToneCurves(OriginalLut ->ContextID, OriginalLut ->InputChannels, Trans, 0);
 
     // Create and insert the curves at the beginning
     if (!cmsPipelineInsertStage(OptimizedLUT, cmsAT_BEGIN, OptimizedPrelinMpe))
@@ -1602,7 +1602,7 @@ void FillSecondShaper(cmsUInt16Number* Table, cmsToneCurve* Curve, cmsBool Is8Bi
     for (i=0; i < 16385; i++) {
 
         R   = (cmsFloat32Number) (i / 16384.0);
-        Val = cmsEvalToneCurveFloat(Curve, R);    // Val comes 0..1.0
+        Val = cmsEvalToneCurveFloat(Curve, R, 0);    // Val comes 0..1.0
 
         if (Val < 0)
             Val = 0;
